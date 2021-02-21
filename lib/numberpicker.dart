@@ -496,7 +496,7 @@ class NumberPicker extends StatelessWidget {
         onChanged(newValue);
       }
     }
-    return true;
+    return false;
   }
 
   bool _onDecimalNotification(Notification notification) {
@@ -524,7 +524,7 @@ class NumberPicker extends StatelessWidget {
         onChanged(newValue);
       }
     }
-    return true;
+    return false;
   }
 
   ///There was a bug, when if there was small integer range, e.g. from 1 to 5,
