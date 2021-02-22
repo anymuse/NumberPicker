@@ -599,7 +599,7 @@ class NumberPicker extends StatelessWidget {
   Future<void> _animate(ScrollController scrollController, double value) {
     return scrollController.animateTo(
       value,
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 350),
       curve: ElasticOutCurve(),
     );
   }
