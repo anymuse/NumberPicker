@@ -161,7 +161,7 @@ class _NumberPickerState extends State<NumberPicker> {
           if (not.dragDetails?.primaryVelocity == 0) {
             Future.microtask(() => _maybeCenterValue());
           }
-          return true;
+          return false;
         },
         child: Stack(
           children: [
