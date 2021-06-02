@@ -16,27 +16,27 @@ void main() {
   });
 }
 
-Future<NumberPicker> _testNumberPicker(
-    {WidgetTester tester,
-    int minValue,
-    int maxValue,
-    double initialValue,
-    int scrollByInt,
-    int scrollByDecimal,
+Future<NumberPicker?> _testNumberPicker(
+    {required WidgetTester tester,
+    int? minValue,
+    int? maxValue,
+    double? initialValue,
+    required int scrollByInt,
+    required int scrollByDecimal,
     int decimalPlaces = 1,
-    double expectedValue,
+    double? expectedValue,
     bool animateToItself = false}) async {
-  double value = initialValue;
-  NumberPicker picker;
+  double? value = initialValue;
+  NumberPicker? picker;
 
   await tester.pumpWidget(
     StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       picker = NumberPicker.decimal(
-        initialValue: value,
-        minValue: minValue,
-        maxValue: maxValue,
+        initialValue: value!,
+        minValue: minValue!,
+        maxValue: maxValue!,
         decimalPlaces: decimalPlaces,
-        onChanged: (newValue) => setState(() => value = newValue),
+        onChanged: (newValue) => setState(() => value = newValue as double?),
       );
       return MaterialApp(
         home: Scaffold(
@@ -57,10 +57,10 @@ Future<NumberPicker> _testNumberPicker(
   expect(value, equals(expectedValue));
 
   if (animateToItself) {
-    expect(picker.selectedIntValue, equals(expectedValue));
-    await picker.animateInt(picker.selectedIntValue);
+    expect(picker!.selectedIntValue, equals(expectedValue));
+    await picker!.animateInt(picker!.selectedIntValue);
     await tester.pumpAndSettle();
-    expect(picker.selectedIntValue, equals(expectedValue));
+    expect(picker!.selectedIntValue, equals(expectedValue));
   }
   return picker;
 }

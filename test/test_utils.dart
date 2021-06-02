@@ -15,47 +15,47 @@ Decoration decoration = new BoxDecoration(
   ),
 );
 
-Future<NumberPicker> testNumberPicker({
-  WidgetTester tester,
-  int minValue,
-  int maxValue,
-  int initialValue,
-  int scrollBy,
+Future<NumberPicker?> testNumberPicker({
+  required WidgetTester tester,
+  int? minValue,
+  int? maxValue,
+  int? initialValue,
+  int? scrollBy,
   int step = 1,
-  TextMapper textMapper,
-  int expectedValue,
+  TextMapper? textMapper,
+  int? expectedValue,
   bool animateToItself = false,
   Axis axis = Axis.vertical,
   bool infiniteLoop = false,
-  Decoration decoration,
+  Decoration? decoration,
   bool highlightSelectedValue = true,
 }) async {
-  int value = initialValue;
-  NumberPicker picker;
+  int? value = initialValue;
+  NumberPicker? picker;
 
   await tester.pumpWidget(
     StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       picker = axis == Axis.vertical
           ? picker = NumberPicker.integer(
-              initialValue: value,
-              minValue: minValue,
-              maxValue: maxValue,
+              initialValue: value!,
+              minValue: minValue!,
+              maxValue: maxValue!,
               step: step,
               textMapper: textMapper,
               infiniteLoop: infiniteLoop,
               decoration: decoration,
               highlightSelectedValue: highlightSelectedValue,
-              onChanged: (newValue) => setState(() => value = newValue),
+              onChanged: (newValue) => setState(() => value = newValue as int?),
             )
           : NumberPicker.horizontal(
-              initialValue: value,
-              minValue: minValue,
-              maxValue: maxValue,
+              initialValue: value!,
+              minValue: minValue!,
+              maxValue: maxValue!,
               step: step,
               textMapper: textMapper,
               decoration: decoration,
               highlightSelectedValue: highlightSelectedValue,
-              onChanged: (newValue) => setState(() => value = newValue),
+              onChanged: (newValue) => setState(() => value = newValue as int?),
             );
       return MaterialApp(
         home: Scaffold(
@@ -72,53 +72,53 @@ Future<NumberPicker> testNumberPicker({
   expect(value, equals(expectedValue));
 
   if (animateToItself) {
-    expect(picker.selectedIntValue, equals(expectedValue));
-    await picker.animateInt(picker.selectedIntValue);
+    expect(picker!.selectedIntValue, equals(expectedValue));
+    await picker!.animateInt(picker!.selectedIntValue);
     await tester.pumpAndSettle();
-    expect(picker.selectedIntValue, equals(expectedValue));
+    expect(picker!.selectedIntValue, equals(expectedValue));
   }
 
   return picker;
 }
 
-Future<NumberPicker> testMultipleValuesInPicker({
-  WidgetTester tester,
-  int minValue,
-  int maxValue,
-  int initialValue,
-  int scrollBy,
+Future<NumberPicker?> testMultipleValuesInPicker({
+  required WidgetTester tester,
+  int? minValue,
+  int? maxValue,
+  int? initialValue,
+  int? scrollBy,
   int step = 1,
-  TextMapper textMapper,
+  TextMapper? textMapper,
   bool animateToItself = false,
   Axis axis = Axis.vertical,
   bool zeroPad = false,
-  List<String> expectedDisplayValues,
+  required List<String> expectedDisplayValues,
   bool infiniteLoop = false,
 }) async {
-  int value = initialValue;
-  NumberPicker picker;
+  int? value = initialValue;
+  NumberPicker? picker;
 
   await tester.pumpWidget(
     StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       picker = axis == Axis.vertical
           ? picker = NumberPicker.integer(
-              initialValue: value,
-              minValue: minValue,
-              maxValue: maxValue,
+              initialValue: value!,
+              minValue: minValue!,
+              maxValue: maxValue!,
               step: step,
               textMapper: textMapper,
               infiniteLoop: infiniteLoop,
-              onChanged: (newValue) => setState(() => value = newValue),
+              onChanged: (newValue) => setState(() => value = newValue as int?),
               zeroPad: zeroPad,
             )
           : NumberPicker.horizontal(
-              initialValue: value,
-              minValue: minValue,
-              maxValue: maxValue,
+              initialValue: value!,
+              minValue: minValue!,
+              maxValue: maxValue!,
               step: step,
               textMapper: textMapper,
               zeroPad: zeroPad,
-              onChanged: (newValue) => setState(() => value = newValue),
+              onChanged: (newValue) => setState(() => value = newValue as int?),
             );
       return MaterialApp(
         home: Scaffold(
@@ -142,7 +142,7 @@ Future<NumberPicker> testMultipleValuesInPicker({
 scrollNumberPicker(
   Offset pickerPosition,
   WidgetTester tester,
-  int scrollBy,
+  int? scrollBy,
   Axis axis,
 ) async {
   double pickerCenterX, pickerCenterY, offsetX, offsetY;
@@ -152,11 +152,11 @@ scrollNumberPicker(
     pickerCenterX = pickerCenterCrossAxis;
     pickerCenterY = pickerCenterMainAxis;
     offsetX = 0.0;
-    offsetY = -scrollBy * NumberPicker.kDefaultItemExtent;
+    offsetY = -scrollBy! * NumberPicker.kDefaultItemExtent;
   } else {
     pickerCenterX = pickerCenterMainAxis;
     pickerCenterY = pickerCenterCrossAxis;
-    offsetX = -scrollBy * NumberPicker.kDefaultItemExtent;
+    offsetX = -scrollBy! * NumberPicker.kDefaultItemExtent;
     offsetY = 0.0;
   }
   Offset pickerCenter = Offset(

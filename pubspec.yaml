@@ -4,12 +4,12 @@ description: NumberPicker is a widget allowing user to choose numbers by scrolli
 homepage: https://github.com/MarcinusX/NumberPicker
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  infinite_listview: ^1.0.1+1
+  infinite_listview: ^1.1.0
 
 flutter:
   uses-material-design: true
